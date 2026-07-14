@@ -1,0 +1,10 @@
+[project]
+name = "comfyui-manga-panel"
+version = "0.1.0"
+description = "ComfyUI nodes for selecting, generating, and compositing rectangular manga panels"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
