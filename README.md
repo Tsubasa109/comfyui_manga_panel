@@ -10,7 +10,7 @@ Clone this repository into `ComfyUI/custom_nodes/comfyui_manga_panel`, then rest
 
 ```powershell
 cd ComfyUI\custom_nodes
-git clone <repository-url> comfyui_manga_panel
+git clone https://github.com/Tsubasa109/comfyui_manga_panel.git
 ```
 
 The package registers three nodes under `image/manga`:
@@ -35,6 +35,8 @@ When connected directly to the standard `Load Image` node, the selected input im
 
 Outputs include the page image, cropped panel, page-sized mask, coordinates, dimensions, and aspect ratio.
 
+![Manga Panel Selector](./examples/sample_images/0000.png)
+
 ### Manga Panel Resolution
 
 Calculates a model-friendly generation resolution while preserving the selected panel's aspect ratio.
@@ -47,6 +49,8 @@ Calculates a model-friendly generation resolution while preserving the selected 
 
 Connect `generation_width` and `generation_height` to `Empty Latent Image` or another model-specific latent node. After execution, the node displays the calculated size and actual pixel count in a format such as `768 × 1344 / 1.03 MP`.
 
+![Manga Panel Resolution](./examples/sample_images/0001.png)
+
 ### Manga Panel Composite
 
 Resizes the generated image to the selected panel and composites it back onto the source page.
@@ -55,28 +59,14 @@ Resizes the generated image to the selected panel and composites it back onto th
 - `fit`: fits the whole generated image and preserves the source page in unused areas.
 - `feather`: pixel radius used to soften the composite boundary.
 
+![Manga Panel Resolution](./examples/sample_images/0002.png)
+
 ## Basic Workflow
 
 1. Restart ComfyUI or reload custom nodes.
 2. Drag `examples/manga_panel_generation.json` into ComfyUI.
-3. Select a manga page in `Load Image`.
+3. Select a manga page in `Load Image`.(Initially, examples/manga_panel_page.png is selected as an example.)
 4. Drag over the target panel in `Manga Panel Selector`.
 5. Select a checkpoint and enter the prompts.
 6. Queue the workflow.
 7. Review or save the `Manga Panel Composite` output.
-
-Coordinates are stored as standard ComfyUI widget values. Reloading the workflow restores the last selection.
-
-## Limitations
-
-- Only rectangular panels are supported.
-- The selector and source-page path handle one page image at a time.
-- Angled panels, polygons, automatic panel detection, and speech-bubble protection are not implemented.
-- Select a checkpoint available in your local ComfyUI installation before running the example workflow.
-
-## Validation
-
-```powershell
-python -m pytest -q tests\test_image_ops.py
-node --check web\manga_panel_selector.js
-```
