@@ -6,11 +6,11 @@
 
 ## インストール
 
-このリポジトリを`ComfyUI/custom_nodes/comfyui_manga_panel`へcloneし、ComfyUIを再起動します。
+このリポジトリを`ComfyUI/custom_nodes`へcloneし、ComfyUIを再起動します。
 
 ```powershell
 cd ComfyUI\custom_nodes
-git clone <repository-url> comfyui_manga_panel
+git clone https://github.com/Tsubasa109/comfyui_manga_panel.git
 ```
 
 `image/manga`カテゴリに次の3ノードが登録されます。
@@ -35,6 +35,8 @@ git clone <repository-url> comfyui_manga_panel
 
 ページ画像、切り抜いたコマ、ページサイズのマスク、座標、寸法、縦横比を出力します。
 
+![Manga Panel Selector](./examples/sample_images/0000.png)
+
 ### Manga Panel Resolution
 
 選択した幅と高さから、縦横比を維持した生成解像度を計算します。
@@ -47,6 +49,8 @@ git clone <repository-url> comfyui_manga_panel
 
 `generation_width`と`generation_height`を`Empty Latent Image`などへ接続します。Queue実行後は、計算された解像度と実画素数を`768 × 1344 / 1.03 MP`の形式でノード内に表示します。
 
+![Manga Panel Resolution](./examples/sample_images/0001.png)
+
 ### Manga Panel Composite
 
 生成画像を選択したコマ寸法へ変換して元ページへ合成します。
@@ -55,28 +59,14 @@ git clone <repository-url> comfyui_manga_panel
 - `fit`: 生成画像全体をコマ内へ収め、余った領域には元ページを残す
 - `feather`: 合成境界をぼかすピクセル半径
 
+![Manga Panel Resolution](./examples/sample_images/0002.png)
+
 ## 基本操作
 
 1. ComfyUIを再起動するか、カスタムノードを再読み込みします。
 2. `examples/manga_panel_generation.json`をComfyUIへドラッグします。
-3. `Load Image`で漫画ページを選択します。
+3. `Load Image`で漫画ページを選択します。(初期はサンプルとしてexamples/manga_panel_page.pngが選択されています)
 4. `Manga Panel Selector`上で対象コマをドラッグします。
 5. Checkpointとプロンプトを設定します。
 6. Queueを実行します。
 7. `Manga Panel Composite`の出力を確認または保存します。
-
-座標は通常のComfyUIウィジェット値としてワークフローJSONへ保存されます。ワークフローを再読込すると最後の選択範囲が復元されます。
-
-## 制限
-
-- 長方形のコマだけに対応します。
-- 選択ノードと元ページ側は一度に1枚の画像を扱います。
-- 斜め枠、多角形、自動コマ検出、吹き出し保護は未実装です。
-- サンプルワークフローを実行する前に、ローカル環境にあるCheckpointを選択してください。
-
-## 検証
-
-```powershell
-python -m pytest -q tests\test_image_ops.py
-node --check web\manga_panel_selector.js
-```
