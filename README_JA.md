@@ -70,3 +70,6 @@ git clone https://github.com/Tsubasa109/comfyui_manga_panel.git
 5. Checkpointとプロンプトを設定します。
 6. Queueを実行します。
 7. `Manga Panel Composite`の出力を確認または保存します。
+
+## ライセンス
+Apache License Version 2.0
