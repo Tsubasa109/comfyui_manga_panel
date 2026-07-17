@@ -70,3 +70,6 @@ Resizes the generated image to the selected panel and composites it back onto th
 5. Select a checkpoint and enter the prompts.
 6. Queue the workflow.
 7. Review or save the `Manga Panel Composite` output.
+
+## Licence
+Apache License Version 2.0
